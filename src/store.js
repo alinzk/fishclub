@@ -8,17 +8,18 @@ const ticker = () => {
     store.dispatch({
       type: 'TICK'
     });
-
   requestAnimationFrame(ticker);
 };
 
 const init = () => {
-  const headerHeight = 100;
+  const headerHeight = document.getElementById('header').offsetHeight;
+  const body = document.getElementsByTagName('body')[0];
+
   store.dispatch({
     type: 'SET_WIDTH_HEIGHT',
     payload: {
-      width: window.innerWidth - 50,
-      height: window.innerHeight - headerHeight,
+      width: body.offsetWidth,
+      height: body.offsetHeight - headerHeight,
     }
   });
 };

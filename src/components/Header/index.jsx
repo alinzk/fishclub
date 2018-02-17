@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import './styles.css';
+
 const Header = ({ onRrChange, refreshRate }) => (
-  <div>
+  <div id="header">
+    <h1 className="fancy"><span>FISH CLUB</span></h1>
     <br />
     <label>
       Refresh rate

@@ -6,9 +6,10 @@ import Background from '../Background';
 import Club from '../Club';
 import Header from '../Header';
 
+import './styles.css';
+
 const Layout = ({ width, height }) => (
   <div>
-    <h1>Fishclub</h1>
     <Header />
     <div>
       <Stage width={width} height={height}>
