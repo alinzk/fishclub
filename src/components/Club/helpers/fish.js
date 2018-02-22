@@ -1,20 +1,49 @@
-import { map } from 'lodash';
+import { shuffle } from 'lodash';
 
-export const moveFish = (fish, rows, cols) => {
-  const cpy = { ...fish };
+const DIRECTIONS = ['UP', 'DOWN', 'LEFT', 'RIGHT'];
 
-  map(cpy, (_fish, k) => {
-    if(_fish.col > cols || _fish.col < 0)
-      _fish.direction *= -1;
+const rand = (max, min = 0) => (
+  min + parseInt(Math.random() * max, 10)
+);
 
-    _fish.col += _fish.direction;
-
-    if(_fish.health <= 0) {
-      delete cpy[k];
+export const _fish = {
+  nextPos: (fish) => {
+    const { row, col } = fish;
+    switch(fish.direction) {
+      case 'UP':    return { row: row - 1, col };
+      case 'DOWN':  return { row: row + 1, col };
+      case 'LEFT':  return { row, col: col - 1 };
+      case 'RIGHT': return { row, col: col + 1 };
+      default: { throw new Error('Invalid direction'); }
     }
-  });
+  },
+  move: (fish) => {
+    const { row, col } = _fish.nextPos(fish);
+    fish.row = row;
+    fish.col = col;
+  },
+  eatPlant: (fish, allFish, plants) => {
 
-  return cpy;
+  },
+  turn: (fish, allFish, plants, rocks, rows, cols) => {
+    rows -= 1; cols -= 1;
+    const directions = shuffle(DIRECTIONS);
+
+    for(let i = 0; i < directions.length; i++) {
+      const { row, col } = _fish.nextPos(fish);
+      const nextPair = `${row},${col}`;
+
+      if(rocks[nextPair] || row <= 0 || row > rows || col <= 0 || col > cols) {
+        fish.direction = directions[i];
+      }
+    }
+  },
+  shrink: (fish) => {
+
+  },
+  eatOthers: (fish, allFish) => {
+
+  },
 };
 
 export const createFish = (count, usedPairs, rows, cols) => {
@@ -27,7 +56,7 @@ export const createFish = (count, usedPairs, rows, cols) => {
     const [r1, r2] = [Math.random(), Math.random()];
     const row = 1 + parseInt(rows * r1, 10),
           col = 1 + parseInt(cols * r2, 10),
-          direction = (Math.ceil(r2 * 10) % 2 ? 1 : -1),
+          direction = DIRECTIONS[rand(4)],
           pair = `${row},${col}`;
 
     if(pairs.indexOf(pair) < 0 && usedPairs.indexOf(pair) < 0) {

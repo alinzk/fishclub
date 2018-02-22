@@ -1,12 +1,11 @@
 import {
   createFish,
-  moveFish,
+  simulate,
   createPlants,
   createRocks,
 } from './helpers/index';
 
 const initialState = {
-  animator: () => {},
   fish: {},
 };
 
@@ -31,7 +30,7 @@ const clubReducer = (state=initialState, action, appState) => {
     case 'TICK':
       return {
         ...state,
-        fish: moveFish(state.fish, appState.rows, appState.cols),
+        fish: simulate(state.fish, state.plants, state.rocks, appState.rows, appState.cols),
       };
 
     default:
