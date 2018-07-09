@@ -3,7 +3,8 @@
   text-align: center;
   vertical-align: middle;
   font-family: 'Sans Serif';
-  padding-top: 20px;
+  padding-top: 10px;
+  margin: 8px auto;
 }
 .fancy span {
   display: inline-block;

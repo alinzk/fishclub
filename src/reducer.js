@@ -3,7 +3,7 @@ import clubReducer from './components/Club/reducer';
 import { GRID_SIZE } from './constants';
 
 const initialState = {
-  refreshRate: 200,
+  refreshRate: 300,
   width: 0,
   height: 0,
   rows: 0,
